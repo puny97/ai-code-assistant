@@ -1,0 +1,13 @@
+{
+  "name": "ai-code-assistant",
+  "version": "1.0.0",
+  "private": "true",
+  "scripts": {
+    "dev:backend": "pnpm --filter backend dev",
+    "dev:frontend": "pnpm --filter frontend dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.30.1"
+}
