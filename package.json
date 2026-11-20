@@ -4,10 +4,17 @@
   "private": "true",
   "scripts": {
     "dev:backend": "pnpm --filter backend dev",
-    "dev:frontend": "pnpm --filter frontend dev"
+    "dev:frontend": "pnpm --filter frontend dev",
+    "format": "prettier --write package.json .github/workflows apps/frontend apps/backend",
+    "format:check": "prettier --check package.json .github/workflows apps/frontend apps/backend",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.30.1"
+  "packageManager": "pnpm@10.30.1",
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "prettier": "^3.10.1"
+  }
 }
