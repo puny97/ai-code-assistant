@@ -74,3 +74,5 @@ export const CodeAgentState = Annotation.Root({
     default: () => "",
   }),
 });
+
+export type CodeAgentStateType = typeof CodeAgentState.State;
