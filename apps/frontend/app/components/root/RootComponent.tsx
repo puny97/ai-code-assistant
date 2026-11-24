@@ -181,7 +181,7 @@ function ResultSection({ result }: { result: GenerateCodeResponse }) {
 
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">
-          Generated files ({result.files.length})
+          Generated files ({result.files.length} ?? 0)
         </h2>
 
         {result.files.map((file) => (

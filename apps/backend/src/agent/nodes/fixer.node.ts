@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 import { model } from "../model.js";
 import { CodeAgentStateType } from "../state.js";
 
@@ -11,7 +11,10 @@ const FixSchema = z.object({
   ),
 });
 
-const fixModel = model.withStructuredOutput(FixSchema);
+const fixModel = model.withStructuredOutput(FixSchema, {
+  method: "functionCalling",
+  name: "fix_generated_code",
+});
 
 export async function fixerNode(state: CodeAgentStateType) {
   const fixed = await fixModel.invoke([

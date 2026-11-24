@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 import { model } from "../model.js";
 import { CodeAgentStateType } from "../state.js";
 
@@ -8,14 +8,17 @@ const ReviewSchema = z.object({
   suggestions: z.array(z.string()),
 });
 
-const reviewModel = model.withStructuredOutput(ReviewSchema);
+const reviewModel = model.withStructuredOutput(ReviewSchema, {
+  method: "functionCalling",
+  name: "review_generated_code",
+});
 
 export async function reviewerNode(state: CodeAgentStateType) {
   const review = await reviewModel.invoke([
     {
       role: "system",
       content: `
-            Ypu are a strict senior code reviewer.
+            You are a strict senior code reviewer.
 
             Review the generated source code.
 
@@ -41,9 +44,10 @@ export async function reviewerNode(state: CodeAgentStateType) {
       }),
     },
   ]);
-
   return {
     review,
-    status: review.approved ? ("validating" as const) : ("generating" as const),
+    status: review?.approved
+      ? ("validating" as const)
+      : ("generating" as const),
   };
 }

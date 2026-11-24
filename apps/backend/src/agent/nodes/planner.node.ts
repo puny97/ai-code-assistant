@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 import { model } from "../model.js";
 import type { CodeAgentStateType } from "../state.js";
 
@@ -9,7 +9,10 @@ const PlanSchema = z.object({
   technicalDecisions: z.array(z.string()),
 });
 
-const plannerModel = model.withStructuredOutput(PlanSchema);
+const plannerModel = model.withStructuredOutput(PlanSchema, {
+  method: "functionCalling",
+  name: "create_implementation_plan",
+});
 
 export async function plannerNode(state: CodeAgentStateType) {
   const plan = await plannerModel.invoke([

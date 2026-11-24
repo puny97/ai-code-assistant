@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 import { model } from "../model.js";
 import { CodeAgentStateType } from "../state.js";
 
@@ -11,7 +11,10 @@ const generatedFileSchema = z.object({
   ),
 });
 
-const generatorModel = model.withStructuredOutput(generatedFileSchema);
+const generatorModel = model.withStructuredOutput(generatedFileSchema, {
+  method: "functionCalling",
+  name: "generate_source_files",
+});
 
 export async function generatorNode(state: CodeAgentStateType) {
   const generated = await generatorModel.invoke([
