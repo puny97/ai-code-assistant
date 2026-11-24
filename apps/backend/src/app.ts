@@ -30,13 +30,23 @@ app.use(
     error: Error,
     _req: express.Request,
     res: express.Response,
-    next: express.NextFunction,
+    _next: express.NextFunction,
   ) => {
-    console.error(error);
+    const isDevelopment = process.env.NODE_ENV !== "production";
 
-    res.status(500).json({
+    const normalizedError =
+      error instanceof Error ? error : new Error(String(error));
+
+    console.error("API Error:", normalizedError);
+
+    return res.status(500).json({
       success: false,
-      message: "SOmething went wrong",
+      message: isDevelopment ? normalizedError.message : "Something went wrong",
+
+      ...(isDevelopment && {
+        errorName: normalizedError.name,
+        stack: normalizedError.stack,
+      }),
     });
   },
 );

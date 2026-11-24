@@ -1,7 +1,6 @@
-import { NextFunction, Request, Response } from "express";
+import type { NextFunction, Request, Response } from "express";
 import { generateCodeSchema } from "./code.schema.js";
 import { codeService } from "./code.service.js";
-import { success } from "zod";
 
 export async function generateCode(
   req: Request,

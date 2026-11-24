@@ -1,5 +1,4 @@
-import { threadId } from "worker_threads";
-import z from "zod";
+import { z } from "zod";
 
 export const generateCodeSchema = z.object({
   prompt: z.string().trim().min(10).max(10000),
